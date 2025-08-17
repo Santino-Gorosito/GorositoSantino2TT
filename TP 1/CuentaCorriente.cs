@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TP_1
+{
+    public class CuentaCorriente : Cuenta
+    {
+        private const int TOPE = -100000;
+        public override void Extraer(int monto)
+        {
+            if ((Saldo -= monto) < TOPE)
+            {
+                Console.WriteLine("No se puede exceder el tope de extraccion descubierto");
+                return;
+            } else
+            {
+                Saldo -= monto;
+            }
+        }
+    }
+}
