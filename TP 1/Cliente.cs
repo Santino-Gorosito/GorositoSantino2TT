@@ -13,6 +13,7 @@ namespace TP_1
         private string telefono;
         private string mail;
         private DateTime fechaNacimiento;
+        private string contraseña;
 
         public int Dni {get { return dni;} set { dni = value; } }
         public string Nombre { get { return nombre; } set { nombre = value; } }
@@ -20,17 +21,19 @@ namespace TP_1
         public string Mail { get { return mail; } set { mail = value; } }
 
         public DateTime FechaNacimiento { get { return fechaNacimiento; } set { fechaNacimiento = value; } }
+        public string Contraseña { get { return contraseña; } set { contraseña = value; } }
 
         public List<CuentaCorriente> CuentasCorrientes = new List<CuentaCorriente>();
         public List<CajaAhorro> CajasAhorro = new List<CajaAhorro>();
 
-        public Cliente(int DNI, string NAME, string TEL, string MAIL, DateTime FNAC)
+        public Cliente(int DNI, string NAME, string contraseña, string TEL, string MAIL, DateTime FNAC)
         {
             Dni = DNI;
             Nombre = NAME;
             Telefono = TEL;
             Mail = MAIL;    
             FechaNacimiento = FNAC;
+            Contraseña = contraseña;
         }
     }
 }
