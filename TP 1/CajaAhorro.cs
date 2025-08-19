@@ -9,6 +9,13 @@ namespace TP_1
     public class CajaAhorro : Cuenta
     {
         private const int MAXIMOEXT = 500000;
+
+        public CajaAhorro(Cliente cliente, int num)
+        {
+            Titular = cliente;
+            Codigo = num;
+            Saldo = 0;
+        }
         public override void Extraer(int monto)
         {
             if (monto > MAXIMOEXT)

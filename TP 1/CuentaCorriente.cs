@@ -9,6 +9,13 @@ namespace TP_1
     public class CuentaCorriente : Cuenta
     {
         private const int TOPE = -100000;
+
+        public CuentaCorriente(Cliente cliente, int num)
+        {
+            Titular = cliente;
+            Codigo = num;
+            Saldo = 0;
+        }
         public override void Extraer(int monto)
         {
             if ((Saldo -= monto) < TOPE)

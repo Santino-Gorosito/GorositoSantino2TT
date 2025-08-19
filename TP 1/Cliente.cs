@@ -6,34 +6,22 @@ using System.Threading.Tasks;
 
 namespace TP_1
 {
-    public class Cliente
+    public class Cliente : Usuario
     {
-        private int dni;
-        private string nombre;
-        private string telefono;
-        private string mail;
-        private DateTime fechaNacimiento;
-        private string contraseña;
-
-        public int Dni {get { return dni;} set { dni = value; } }
-        public string Nombre { get { return nombre; } set { nombre = value; } }
-        public string Telefono { get { return telefono; } set { telefono = value; } }
-        public string Mail { get { return mail; } set { mail = value; } }
-
-        public DateTime FechaNacimiento { get { return fechaNacimiento; } set { fechaNacimiento = value; } }
-        public string Contraseña { get { return contraseña; } set { contraseña = value; } }
-
         public List<CuentaCorriente> CuentasCorrientes = new List<CuentaCorriente>();
         public List<CajaAhorro> CajasAhorro = new List<CajaAhorro>();
 
-        public Cliente(int DNI, string NAME, string contraseña, string TEL, string MAIL, DateTime FNAC)
+        public Cliente(int DNI, string NAME, string contraseña, string TEL, string MAIL, DateTime FNAC, DateTime FC)
         {
             Dni = DNI;
             Nombre = NAME;
             Telefono = TEL;
-            Mail = MAIL;    
+            Mail = MAIL;
             FechaNacimiento = FNAC;
             Contraseña = contraseña;
+            FechaCreacionUsuario = FC;
+            Tipo = "Cliente";
         }
+
     }
 }

@@ -8,13 +8,13 @@ namespace TP_1
 {
     public class Banco
     {
-        public List<Cliente> Clientes = new List<Cliente>();
+        public List<Usuario> Usuarios = new List<Usuario>();
         public List<Cuenta> Cuentas = new List<Cuenta>();
         public List<Movimiento> Movimientos = new List<Movimiento>();
 
-        public Cliente buscarUsuarioPorNombre(string nombre)
+        public Usuario buscarUsuarioPorNombre(string nombre)
         {
-            Cliente usuario = Clientes.FirstOrDefault(c => c.Nombre == nombre);
+            Usuario usuario = Usuarios.FirstOrDefault(c => c.Nombre == nombre);
             return usuario;  
         }
 
@@ -22,7 +22,7 @@ namespace TP_1
         {
             bool existe = false;
 
-            Cliente usuariocDNI = Clientes.FirstOrDefault(c => c.Dni == dni);
+            Usuario usuariocDNI = Usuarios.FirstOrDefault(c => c.Dni == dni);
             
             if (usuariocDNI == null)
             {
@@ -33,9 +33,14 @@ namespace TP_1
             }
         }
 
-        public void agregarUsuario(Cliente usuario)
+        public void agregarUsuario(Usuario usuario)
         {
-            Clientes.Add(usuario);
+            Usuarios.Add(usuario);
+        }
+
+        public void agregarCuenta(Cuenta cuenta)
+        {
+            Cuentas.Add(cuenta);
         }
     }
 }
