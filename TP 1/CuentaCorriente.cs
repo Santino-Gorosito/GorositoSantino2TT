@@ -18,15 +18,17 @@ namespace TP_1
         }
         public override bool Extraer(int monto)
         {
-            if ((Saldo -= monto) < TOPE)
+            if ((Saldo - monto) < TOPE)
             {
                 Console.WriteLine("No se puede exceder el tope de extraccion descubierto");
                 return false;
-            } else
+            }
+            else
             {
-                Saldo -= monto;
+                Saldo -= monto; 
                 return true;
             }
         }
+
     }
 }

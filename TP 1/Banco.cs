@@ -57,37 +57,30 @@ namespace TP_1
 
         public void EliminarClientesSinCuentas()
         {
-            foreach (Cliente c in Usuarios)
-            {
-                if (c.CuentasCorrientes.Count == 0 && c.CajasAhorro.Count == 0)
-                {
-                    Usuarios.Remove(c);
-                }
-            }
+            Usuarios.RemoveAll(u => u is Cliente c && c.CuentasCorrientes.Count == 0 && c.CajasAhorro.Count == 0);
+
         }
 
         public void EliminarCuentas()
         {
-            foreach(Cliente c in Usuarios)
+            foreach (Cliente c in Usuarios.OfType<Cliente>())
             {
-                var cuentasCSinSaldo = c.CuentasCorrientes.Where(c => c.Saldo == 0).ToList();
-                var cajasSinSaldo = c.CajasAhorro.Where(c => c.Saldo == 0).ToList();
+                var cuentasCSinSaldo = c.CuentasCorrientes.Where(cc => cc.Saldo == 0).ToList();
+                var cajasSinSaldo = c.CajasAhorro.Where(ca => ca.Saldo == 0).ToList();
 
                 foreach (var cuenta in cuentasCSinSaldo)
                 {
-                    
                     c.CuentasCorrientes.Remove(cuenta);
                     Cuentas.Remove(cuenta);
                 }
 
                 foreach (var caja in cajasSinSaldo)
                 {
-
                     c.CajasAhorro.Remove(caja);
                     Cuentas.Remove(caja);
                 }
             }
-           
         }
+
     }
 }

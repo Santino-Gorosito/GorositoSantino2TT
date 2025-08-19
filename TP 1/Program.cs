@@ -659,7 +659,8 @@ void MenuDeOperacionesAdmin(Admin admin)
     Console.WriteLine("1. Listado de clientes");
     Console.WriteLine("2. Eliminar clientes sin cuentas");
     Console.WriteLine("3. Eliminar cuentas sin saldo");
-    Console.WriteLine("4. Reasignar titular de una cuenta\n");
+    Console.WriteLine("4. Reasignar titular de una cuenta");
+    Console.WriteLine("5. Ver movimientos");
 
     Console.Write("Seleccione la opcion 'Salir' para volver al login:");
     string opcionInput = Console.ReadLine();
@@ -681,6 +682,12 @@ void MenuDeOperacionesAdmin(Admin admin)
             break;
         case "4":
             ReasignarTitular();
+            break;
+        case "5":
+            ListarMovimientos();
+            break;
+        default:
+            MenuDeOperacionesAdmin(admin);
             break;
     }
 
@@ -751,9 +758,86 @@ void ListarClientes()
 }
 void ReasignarTitular()
 {
-    Console.WriteLine("")
-}
+    Console.Clear();
 
+    bool numValido = false;
+
+    while (!numValido) {
+        Console.Write("Ingrese el numero de la cuenta a reasignar titular. 'Salir' para volver al menu de admin:");
+        string numInput = Console.ReadLine();
+
+        if (numInput == "Salir")
+        {
+            MenuDeOperacionesAdmin(admin);
+        }
+
+        int numCuenta = 0;
+
+        try
+        {
+            numCuenta = Convert.ToInt32(numInput);
+            Cuenta cuenta = banco.obtenerCuenta(numCuenta);
+
+            if (cuenta != null){
+
+                bool titularValido = false;
+
+                while (!titularValido)
+                {
+                    Console.Write("Determine el nombre del nuevo titular:");
+                    string nombreTitular = Console.ReadLine();
+
+                    Usuario user = banco.buscarUsuarioPorNombre(nombreTitular);
+
+                    if (user is Cliente c)
+                    {
+                        Cliente nuevoTitular = c;
+                        Cliente antiguoTitular = cuenta.Titular;
+
+                        if (cuenta is CuentaCorriente)
+                        {
+                            antiguoTitular.CuentasCorrientes.Remove((CuentaCorriente)cuenta);
+                        }
+                        else if (cuenta is CajaAhorro)
+                        {
+                            antiguoTitular.CajasAhorro.Remove((CajaAhorro)cuenta);
+                        }
+
+                        cuenta.Titular = nuevoTitular;
+
+                        if (cuenta is CuentaCorriente)
+                            nuevoTitular.CuentasCorrientes.Add((CuentaCorriente)cuenta);
+                        else if (cuenta is CajaAhorro)
+                            nuevoTitular.CajasAhorro.Add((CajaAhorro)cuenta);
+
+                        Console.WriteLine("Titular reasignado con éxito.");
+                        titularValido = true;
+
+                    } else
+                    {
+                        Console.WriteLine("El usuario no existe");
+                    }
+                    
+                }
+                numValido = true;
+            } else
+            {
+                Console.WriteLine("El numero de cuenta no existe");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Ingrese un numero entero");
+        }
+    }  
+}
+void ListarMovimientos()
+{
+    foreach(Movimiento m in banco.Movimientos)
+    {
+        Console.WriteLine($"{m.Info}");
+    }
+}
 
 
 // =========================

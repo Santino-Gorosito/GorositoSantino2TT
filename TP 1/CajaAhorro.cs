@@ -18,10 +18,14 @@ namespace TP_1
         }
         public override bool Extraer(int monto)
         {
- 
             if (monto > MAXIMOEXT)
             {
                 Console.WriteLine("No se puede exceder el maximo de extraccion");
+                return false;
+            }
+            else if (monto > Saldo)
+            {
+                Console.WriteLine("Saldo insuficiente");
                 return false;
             }
             else
@@ -30,5 +34,6 @@ namespace TP_1
                 return true;
             }
         }
+
     }
 }
