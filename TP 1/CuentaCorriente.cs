@@ -16,15 +16,16 @@ namespace TP_1
             Codigo = num;
             Saldo = 0;
         }
-        public override void Extraer(int monto)
+        public override bool Extraer(int monto)
         {
             if ((Saldo -= monto) < TOPE)
             {
                 Console.WriteLine("No se puede exceder el tope de extraccion descubierto");
-                return;
+                return false;
             } else
             {
                 Saldo -= monto;
+                return true;
             }
         }
     }

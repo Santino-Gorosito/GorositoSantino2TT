@@ -16,16 +16,18 @@ namespace TP_1
             Codigo = num;
             Saldo = 0;
         }
-        public override void Extraer(int monto)
+        public override bool Extraer(int monto)
         {
+ 
             if (monto > MAXIMOEXT)
             {
                 Console.WriteLine("No se puede exceder el maximo de extraccion");
-                return;
+                return false;
             }
             else
             {
                 Saldo -= monto;
+                return true;
             }
         }
     }

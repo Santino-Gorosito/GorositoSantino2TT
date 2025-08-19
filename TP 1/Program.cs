@@ -1,22 +1,28 @@
 ﻿using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
+using System.Runtime.Intrinsics.X86;
 using TP_1;
 
-Banco banco = new Banco();
+// =========================
+// DECLARACION DE REPOSITORIO Y HARCODEO ADMIN
 
-// HARCODEO DE ADMIN
+Banco banco = new Banco();
 
 Admin admin = new Admin(123456, "Santino", "kikoloco", "341318-3054", "gorositotomas82@gmail.com", DateTime.Now);
 banco.Usuarios.Add(admin);
 
+// =========================
+
+// =========================
+// INICIO PROGRAMA
+
 Console.WriteLine("BIENVENIDO AL SISTEMA BANCARIO UAI\n");
-
-// LOGIN
-
 Login();
 
-//------------------------------------------
+// =========================
 
+// =========================
+// FUNCIONES DE LOGIN
 void Login()
 {
     Console.Clear();
@@ -152,7 +158,6 @@ void Login()
 
     }
 }
-
 void IniciarSesion()
 {
     Console.Clear();
@@ -207,9 +212,11 @@ void IniciarSesion()
         }
     }
 }
-//_________________________________________________________________________________________________________
+// =========================
 
-// Menu de operaciones de usuario
+
+// =========================
+//        MENU USUARIO
 
 void MenuDeOperacionesCliente(Cliente cliente)
 {
@@ -249,14 +256,17 @@ void MenuDeOperacionesCliente(Cliente cliente)
             CreacionCuenta(cliente);
             break;
         case "2":
-            Console.Clear();
-
-            Console.WriteLine("Ingrese el numero de cuenta para ingresar dinero");
+            Ingresar(cliente);
+            break;
+        case "3":
+            Extraer(cliente);
+            break;
+        case "4":
+            Modificar(cliente);
             break;
     }
 
 }
-
 void CreacionCuenta(Cliente cliente)
 {
     Console.Clear();
@@ -329,10 +339,314 @@ void CreacionCuenta(Cliente cliente)
             break;
     }
 }
+void Ingresar(Cliente cliente)
+{
+    Console.Clear();
 
-//_________________________________________________________________________________________________________
+    bool numCuentaValido = false;
+    int numCuenta = 0;
 
-// Menu de operaciones de ADMIN
+
+    while (!numCuentaValido)
+    {
+        Console.Write("Ingrese el numero de cuenta para ingresar dinero. 'Salir' para volver al menu de operaciones:");
+        string inputNumCuenta = Console.ReadLine();
+
+        if (inputNumCuenta == "Salir")
+        {
+            MenuDeOperacionesCliente(cliente);
+        }
+
+        try
+        {
+            numCuenta = Convert.ToInt32(inputNumCuenta);
+        }
+        catch (Exception ex)
+        {
+            Console.Write("Ingrese un numero entero");
+        }
+
+        Cuenta cuenta = banco.obtenerCuenta(numCuenta);
+
+        if (cuenta == null)
+        {
+            Console.WriteLine("El numero de cuenta no existe");
+        }
+        else
+        {
+            bool montoValido = false;
+            int monto = 0;
+
+            while (!montoValido)
+            {
+
+                Console.Write("Ingrese el monto. 'Salir' para volver al menu de operaciones: ");
+                string inputMonto = Console.ReadLine();
+
+                if (inputMonto == "Salir")
+                {
+                    MenuDeOperacionesCliente(cliente);
+                }
+
+
+
+                try
+                {
+                    monto = Convert.ToInt32(inputMonto);
+
+                    if (monto <= 0)
+                    {
+                        Console.WriteLine("Ingrese un monto mayor a 0");
+                    }
+                    else
+                    {
+                        montoValido = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Ingrese un numero entero");
+                }
+            }
+
+            cuenta.Ingresar(monto);
+
+            Ingreso ingreso = new Ingreso(DateTime.Now, monto);
+            banco.Movimientos.Add(ingreso);
+
+            numCuentaValido = true;
+        }
+    }
+}
+void Extraer(Cliente cliente)
+{
+    Console.Clear();
+
+    bool numCuentaValido = false;
+    int numCuenta = 0;
+
+
+    while (!numCuentaValido)
+    {
+        Console.Write("Ingrese el numero de cuenta para extraer dinero. 'Salir' para volver al menu de operaciones:");
+        string inputNumCuenta = Console.ReadLine();
+
+        if (inputNumCuenta == "Salir")
+        {
+            MenuDeOperacionesCliente(cliente);
+        }
+
+        try
+        {
+            numCuenta = Convert.ToInt32(inputNumCuenta);
+        }
+        catch (Exception ex)
+        {
+            Console.Write("Ingrese un numero entero");
+        }
+
+        Cuenta cuenta = banco.obtenerCuenta(numCuenta);
+
+        if (cuenta == null)
+        {
+            Console.WriteLine("El numero de cuenta no existe");
+        }
+        else
+        {
+            bool montoValido = false;
+            int monto = 0;
+
+            while (!montoValido)
+            {
+
+                Console.Write("Ingrese el monto. 'Salir' para volver al menu de operaciones: ");
+                string inputMonto = Console.ReadLine();
+
+                if (inputMonto == "Salir")
+                {
+                    MenuDeOperacionesCliente(cliente);
+                }
+
+                try
+                {
+                    monto = Convert.ToInt32(inputMonto);
+
+                    if (monto <= 0)
+                    {
+                        Console.WriteLine("Ingrese un monto mayor a 0");
+                    }
+                    else
+                    {
+                        montoValido = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Ingrese un numero entero");
+                }
+            }
+
+            if (cuenta.Extraer(monto))
+            {
+                banco.Movimientos.Add(new Egreso(DateTime.Now, monto));
+                Console.WriteLine("Extraccion exitosa");
+            }
+            else
+            {
+                Console.WriteLine("No se pudo realizar la extraccion");
+            }
+        }
+    }
+}
+void Modificar(Cliente cliente)
+{
+    Console.Clear();
+
+    Console.WriteLine("EDICION DE INFORMACION PERSONAL\n");
+
+    bool nombreNuevoValido = false;
+
+    while (!nombreNuevoValido)
+    {
+        Console.Write("Nuevo nombre (Enter para saltear):");
+        string nuevoNombre = Console.ReadLine();
+
+        if (string.IsNullOrEmpty(nuevoNombre)) {
+            nombreNuevoValido = true;
+        } else
+        {
+            Usuario existeCliente = banco.buscarUsuarioPorNombre(nuevoNombre);
+
+            if (existeCliente == null) {
+                cliente.Nombre = nuevoNombre;
+                nombreNuevoValido = true;
+            } else
+            {
+                Console.WriteLine("El nombre de usuario ya existe");
+            }
+        }
+    }
+
+    bool nuevoDniValido = false;
+
+    while (!nuevoDniValido) {
+        Console.Write("Nuevo DNI (Enter para saltear):");
+        string nuevoDni = Console.ReadLine();
+
+        int dniNuevo = 0;
+
+        if (string.IsNullOrEmpty(nuevoDni))
+        {
+            nuevoDniValido = true;
+        }
+
+        try
+        {
+            dniNuevo = Convert.ToInt32(nuevoDni);
+
+            bool existe = banco.existeDni(dniNuevo);
+
+            if (existe) {
+                Console.WriteLine("Ya existe un usuario con ese mismo dni");
+            } else
+            {
+                cliente.Dni = dniNuevo;
+                nuevoDniValido = true;
+            }
+        }
+        catch (Exception ex) {
+            Console.WriteLine("Ingrese un numero entero");
+        }
+
+    }
+
+    bool telefonoNuevoValido = false;
+
+    while (!telefonoNuevoValido)
+    {
+        Console.Write("Nuevo Telefono (Enter para saltear):");
+        string nuevoTelefono = Console.ReadLine();
+
+        if (string.IsNullOrEmpty(nuevoTelefono))
+        {
+            telefonoNuevoValido = true;
+        }
+        else
+        {
+            cliente.Telefono = nuevoTelefono;
+            telefonoNuevoValido = true;
+        }
+    }
+
+    bool mailNuevoValido = false;
+
+    while (!mailNuevoValido)
+    {
+        Console.Write("Nuevo Mail (Enter para saltear):");
+        string nuevoMail = Console.ReadLine();
+
+        if (string.IsNullOrEmpty(nuevoMail))
+        {
+            mailNuevoValido = true;
+        }
+        else
+        {
+            cliente.Mail = nuevoMail;
+            mailNuevoValido = true;
+        }
+    }
+
+    bool fechaValida = false;
+    bool edadValida = false;
+    DateTime nuevaFecha = DateTime.Now;
+
+    while (!fechaValida)
+    {
+        Console.Write("Nueva fecha de nacimiento (dd/MM/yyyy) [Enter para saltear]: ");
+        string inputFecha = Console.ReadLine();
+
+        if (string.IsNullOrEmpty(inputFecha))
+        {
+            fechaValida = true;
+        }
+        else if (DateTime.TryParseExact(inputFecha, "dd/MM/yyyy",
+            System.Globalization.CultureInfo.InvariantCulture,
+            System.Globalization.DateTimeStyles.None, out nuevaFecha) && EdadValida(nuevaFecha))
+        {
+            cliente.FechaNacimiento = nuevaFecha;
+            fechaValida = true;
+        }
+        else
+        {
+            Console.WriteLine("Fecha de nacimiento invalida");
+        }
+    }
+
+    bool contraseñaNuevaValida = false;
+
+    while (!contraseñaNuevaValida)
+    {
+        Console.Write("Nueva contraseña (Enter para saltear):");
+        string nuevaContraseña = Console.ReadLine();
+
+        if (string.IsNullOrEmpty(nuevaContraseña))
+        {
+            contraseñaNuevaValida = true;
+        }
+        else
+        {
+            cliente.Contraseña = nuevaContraseña;
+            contraseñaNuevaValida = true;
+        }
+    }
+
+    MenuDeOperacionesCliente(cliente);
+}
+
+// =========================
+
+
+// MENU DE ADMIN
 
 void MenuDeOperacionesAdmin(Admin admin)
 {
@@ -342,18 +656,111 @@ void MenuDeOperacionesAdmin(Admin admin)
 
     Console.WriteLine("Menu de opciones:\n");
 
+    Console.WriteLine("1. Listado de clientes");
+    Console.WriteLine("2. Eliminar clientes sin cuentas");
+    Console.WriteLine("3. Eliminar cuentas sin saldo");
+    Console.WriteLine("4. Reasignar titular de una cuenta\n");
 
+    Console.Write("Seleccione la opcion 'Salir' para volver al login:");
+    string opcionInput = Console.ReadLine();
 
+    if (opcionInput == "Salir")
+    {
+        Login();
+    }
 
-
-
+    switch (opcionInput) {
+        case "1":
+            ListarClientes();
+            break;
+        case "2":
+            banco.EliminarClientesSinCuentas();
+            break;
+        case "3":
+            banco.EliminarCuentas();
+            break;
+        case "4":
+            ReasignarTitular();
+            break;
+    }
 
 }
 
-// ________________________________________________________________________________________________________
+void ListarClientes()
+{
+    Console.Clear();
 
-// Verificacion de edad requerida para logeo
+    Console.WriteLine("1. Listar todos los clientes");
+    Console.WriteLine("2. Buscar por DNI");
 
+    Console.Write("Opcion:");
+    string opcion = Console.ReadLine();
+
+    switch (opcion)
+    {
+        case "1":
+
+            foreach (Usuario u in banco.Usuarios)
+            {
+                Console.WriteLine($"{u.Nombre} | {u.Dni}");
+            }
+
+            break;
+        case "2":
+
+            bool dniValido = false;
+
+            while (!dniValido)
+            {
+                Console.Write("Ingrese el dni del usuario 'Salir' para volver al menu de admin:");
+                string dniInput = Console.ReadLine();
+
+                if (dniInput == "Salir")
+                {
+                    MenuDeOperacionesAdmin(admin);
+                    return;
+                }
+
+                int dni = 0;
+
+                try
+                {
+                    dni = Convert.ToInt32(dniInput);
+                    Usuario user = banco.buscarUsuarioPorDNI(dni);
+
+                    if (user == null) {
+                        Console.WriteLine("No existe ese usuario");
+                    } else
+                    {
+                        Console.WriteLine($"{user.Nombre} | {user.Dni} | {user.FechaNacimiento}");
+                        dniValido = true;
+                        Console.WriteLine("\nPresione una tecla para volver al menu");
+                        Console.ReadKey();
+                        MenuDeOperacionesAdmin(admin);
+                    }
+                }
+                catch (Exception ex) {
+                    Console.WriteLine("Ingrese un numero entero");
+                }
+            }
+            break;
+        default:
+            MenuDeOperacionesAdmin(admin);
+            break;
+    }
+}
+void ReasignarTitular()
+{
+    Console.WriteLine("")
+}
+
+
+
+// =========================
+
+
+// =========================
+// FUNCIONES ADICIONALES
 bool EdadValida(DateTime fechaNac)
 {
     bool valida = false;
@@ -377,11 +784,6 @@ bool EdadValida(DateTime fechaNac)
         return valida;
     }
 }
-
-//__________________________________________________________________________________________________________
-
-// Creacion numero de cuenta aleatorio
-
 int GenerarNumeroCuenta()
 {
     Random rnd = new Random();
@@ -393,6 +795,9 @@ int GenerarNumeroCuenta()
 
     return numCuenta;
 }
+
+
+// =========================
 
 
 

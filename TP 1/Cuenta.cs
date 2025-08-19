@@ -17,7 +17,7 @@ namespace TP_1
 
         public int Saldo { get { return saldo; } set { saldo = value; } }
 
-        public abstract void Extraer(int monto);
+        public abstract bool Extraer(int monto);
         public void Ingresar(int monto)
         {
             saldo += monto;
