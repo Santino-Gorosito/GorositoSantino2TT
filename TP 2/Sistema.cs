@@ -36,5 +36,29 @@ namespace TP_2
         {
             Clientes.Remove(cliente);
         }
+
+        public void AgregarSerie(Serie serie)
+        {
+            Series.Add(serie);
+        }
+
+        public void EliminarSerie(Serie serie)
+        {
+            Series.Remove(serie);
+        }
+
+        public bool ExisteSerie(string nombre)
+        {
+            Serie serie = Series.FirstOrDefault(c => c.Nombre == nombre);
+
+            if (serie == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

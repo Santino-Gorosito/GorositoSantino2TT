@@ -44,7 +44,6 @@
             colNombre = new DataGridViewTextBoxColumn();
             colDni = new DataGridViewTextBoxColumn();
             tabPage3 = new TabPage();
-            label6 = new Label();
             label5 = new Label();
             label4 = new Label();
             btnModificar = new Button();
@@ -53,7 +52,6 @@
             colNombreModif = new DataGridViewTextBoxColumn();
             colDniModif = new DataGridViewTextBoxColumn();
             colFechaNacModif = new DataGridViewTextBoxColumn();
-            dtFechaNacModif = new DateTimePicker();
             tbDniModif = new TextBox();
             tbNombreModif = new TextBox();
             tabControl1.SuspendLayout();
@@ -204,13 +202,11 @@
             // 
             // tabPage3
             // 
-            tabPage3.Controls.Add(label6);
             tabPage3.Controls.Add(label5);
             tabPage3.Controls.Add(label4);
             tabPage3.Controls.Add(btnModificar);
             tabPage3.Controls.Add(btnListarModif);
             tabPage3.Controls.Add(dataModificar);
-            tabPage3.Controls.Add(dtFechaNacModif);
             tabPage3.Controls.Add(tbDniModif);
             tabPage3.Controls.Add(tbNombreModif);
             tabPage3.Location = new Point(4, 24);
@@ -220,15 +216,6 @@
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Modificar";
             tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(470, 80);
-            label6.Name = "label6";
-            label6.Size = new Size(62, 15);
-            label6.TabIndex = 8;
-            label6.Text = "Fecha Nac";
             // 
             // label5
             // 
@@ -250,9 +237,9 @@
             // 
             // btnModificar
             // 
-            btnModificar.Location = new Point(538, 132);
+            btnModificar.Location = new Point(470, 74);
             btnModificar.Name = "btnModificar";
-            btnModificar.Size = new Size(75, 23);
+            btnModificar.Size = new Size(168, 23);
             btnModificar.TabIndex = 5;
             btnModificar.Text = "Modificar";
             btnModificar.UseVisualStyleBackColor = true;
@@ -291,13 +278,6 @@
             // 
             colFechaNacModif.HeaderText = "Fecha de Nacimiento";
             colFechaNacModif.Name = "colFechaNacModif";
-            // 
-            // dtFechaNacModif
-            // 
-            dtFechaNacModif.Location = new Point(538, 74);
-            dtFechaNacModif.Name = "dtFechaNacModif";
-            dtFechaNacModif.Size = new Size(200, 23);
-            dtFechaNacModif.TabIndex = 2;
             // 
             // tbDniModif
             // 
@@ -351,7 +331,6 @@
         private Button btnEliminar;
         private Button btnListar;
         private DataGridView dataModificar;
-        private DateTimePicker dtFechaNacModif;
         private TextBox tbDniModif;
         private TextBox tbNombreModif;
         private Button btnModificar;
@@ -359,7 +338,6 @@
         private DataGridViewTextBoxColumn colNombreModif;
         private DataGridViewTextBoxColumn colDniModif;
         private DataGridViewTextBoxColumn colFechaNacModif;
-        private Label label6;
         private Label label5;
         private Label label4;
     }

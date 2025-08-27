@@ -56,6 +56,7 @@ namespace TP_2
                 {
                     Cliente cliente = new Cliente(tbNombre.Text, fechaNac, dni);
                     sis.AgregarCliente(cliente);
+                    limpiarCampos();
                 }
             }
             catch (FormatException)
@@ -150,39 +151,37 @@ namespace TP_2
             if (!string.IsNullOrEmpty(tbNombreModif.Text))
             {
                 cliente.Nombre = tbNombreModif.Text;
+                ActualizarDataEliminar();
+                ActualizarDataModificar();
             }
-            else if (!string.IsNullOrEmpty(tbDniModif.Text)) {
+
+            if (!string.IsNullOrEmpty(tbDniModif.Text)) {
                 try
                 {
                     int dniModif = Convert.ToInt32(tbDniModif.Text);
 
                     if (sis.ExisteDni(dniModif)) {
-                        Console.WriteLine("Ese dni ya existe");
+                        MessageBox.Show("Ese dni ya existe");
                         return;
                     } else
                     {
                         cliente.Dni = dniModif;
+                        ActualizarDataEliminar();
+                        ActualizarDataModificar();
                     }
                 } catch (FormatException) {
-                    Console.WriteLine("Ingrese un DNI numerico");
+                    MessageBox.Show("Ingrese un DNI numerico");
                     return;
                 } 
             } 
-            
-            try
-            {
-                CalcularEdad(dtFechaNacModif.Value);
-            }
-            catch (EdadInvalidaException ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+        }
 
-            cliente.FechaNacimiento = dtFechaNacModif.Value;
-
-            ActualizarDataEliminar();
-            ActualizarDataModificar();
+        public void limpiarCampos()
+        {
+            tbDni.Text = string.Empty;
+            tbDniModif.Text = string.Empty;
+            tbNombre.Text = string.Empty;
+            tbNombreModif.Text = string.Empty;
 
         }
     }
