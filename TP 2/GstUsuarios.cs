@@ -14,20 +14,24 @@ namespace TP_2
     public partial class GstUsuarios : Form
     {
         private Sistema sis = new Sistema();
+        private Form1 menu = new Form1();
 
         public class EdadInvalidaException : Exception
         {
-            public EdadInvalidaException(string mensaje) : base(mensaje) {
+            public EdadInvalidaException(string mensaje) : base(mensaje)
+            {
                 mensaje = "No puedes registrarte siendo menor de edad";
+
             }
         }
 
 
 
-        public GstUsuarios(Sistema sistema)
+        public GstUsuarios(Sistema sistema, Form1 menuPrincipal)
         {
             InitializeComponent();
-            sis = sistema;
+            sis = sistema; 
+            menu = menuPrincipal;
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
@@ -141,7 +145,8 @@ namespace TP_2
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            if (dataModificar.SelectedRows.Count == 0) {
+            if (dataModificar.SelectedRows.Count == 0)
+            {
                 MessageBox.Show("Seleccione un cliente a modificar");
                 return;
             }
@@ -155,25 +160,30 @@ namespace TP_2
                 ActualizarDataModificar();
             }
 
-            if (!string.IsNullOrEmpty(tbDniModif.Text)) {
+            if (!string.IsNullOrEmpty(tbDniModif.Text))
+            {
                 try
                 {
                     int dniModif = Convert.ToInt32(tbDniModif.Text);
 
-                    if (sis.ExisteDni(dniModif)) {
+                    if (sis.ExisteDni(dniModif))
+                    {
                         MessageBox.Show("Ese dni ya existe");
                         return;
-                    } else
+                    }
+                    else
                     {
                         cliente.Dni = dniModif;
                         ActualizarDataEliminar();
                         ActualizarDataModificar();
                     }
-                } catch (FormatException) {
+                }
+                catch (FormatException)
+                {
                     MessageBox.Show("Ingrese un DNI numerico");
                     return;
-                } 
-            } 
+                }
+            }
         }
 
         public void limpiarCampos()
@@ -183,6 +193,12 @@ namespace TP_2
             tbNombre.Text = string.Empty;
             tbNombreModif.Text = string.Empty;
 
+        }
+
+        private void btnAtras_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            menu.Show();
         }
     }
 }

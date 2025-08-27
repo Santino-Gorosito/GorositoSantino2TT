@@ -28,12 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "GstVentas";
+            btnAtras = new Button();
+            SuspendLayout();
+            // 
+            // btnAtras
+            // 
+            btnAtras.Location = new Point(698, 415);
+            btnAtras.Name = "btnAtras";
+            btnAtras.Size = new Size(75, 23);
+            btnAtras.TabIndex = 0;
+            btnAtras.Text = "Atras";
+            btnAtras.UseVisualStyleBackColor = true;
+            btnAtras.Click += btnAtras_Click;
+            // 
+            // GstVentas
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(btnAtras);
+            Name = "GstVentas";
+            Text = "GstVentas";
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private Button btnAtras;
     }
 }

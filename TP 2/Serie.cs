@@ -39,5 +39,11 @@ namespace TP_2
 
         }
         #endregion
+
+        public override string ToString()
+        {
+            return Nombre; 
+        }
+
     }
 }

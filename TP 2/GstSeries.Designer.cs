@@ -75,6 +75,7 @@
             colDirector = new DataGridViewTextBoxColumn();
             colGenero = new DataGridViewTextBoxColumn();
             colRanking = new DataGridViewTextBoxColumn();
+            btnAtras = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -91,7 +92,7 @@
             tabControl1.Location = new Point(12, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1293, 741);
+            tabControl1.Size = new Size(1254, 700);
             tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -114,7 +115,7 @@
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(1285, 713);
+            tabPage1.Size = new Size(1246, 672);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Alta";
             tabPage1.UseVisualStyleBackColor = true;
@@ -494,11 +495,22 @@
             colRanking.HeaderText = "Ranking";
             colRanking.Name = "colRanking";
             // 
+            // btnAtras
+            // 
+            btnAtras.Location = new Point(1264, 730);
+            btnAtras.Name = "btnAtras";
+            btnAtras.Size = new Size(75, 23);
+            btnAtras.TabIndex = 1;
+            btnAtras.Text = "Atras";
+            btnAtras.UseVisualStyleBackColor = true;
+            btnAtras.Click += btnAtras_Click;
+            // 
             // GstSeries
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1351, 765);
+            Controls.Add(btnAtras);
             Controls.Add(tabControl1);
             Name = "GstSeries";
             Text = "GstSeries";
@@ -562,5 +574,6 @@
         private Button btnListar;
         private Button btnEliminar;
         private Button btnListarModif;
+        private Button btnAtras;
     }
 }

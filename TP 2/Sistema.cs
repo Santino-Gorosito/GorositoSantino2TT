@@ -60,5 +60,54 @@ namespace TP_2
                 return true;
             }
         }
+
+        public bool ExisteCanal(string nombre) {
+            Canal canal = Canales.FirstOrDefault(c => c.Nombre ==  nombre);
+
+            if (canal == null)
+            {
+                return false;
+            } else
+            {
+                return true;
+            }
+        }
+
+        public void AgregarCanal(Canal canal)
+        {
+            Canales.Add(canal);
+        }
+
+        public void EliminarCanal(Canal canal)
+        {
+            Canales.Remove(canal);
+        }
+
+        public Canal DevolverCanal(string nombre)
+        {
+            return Canales.FirstOrDefault(c => c.Nombre == nombre);
+        }
+
+        public bool ExistePaquete(string nombre) {
+            Paquete paquete = Paquetes.FirstOrDefault(c => c.Nombre == nombre);
+
+            if (paquete == null)
+            {
+                return false;
+            } else
+            {
+                return true;
+            }
+        }
+
+        public void AgregarPaquete(Paquete paquete)
+        {
+            Paquetes.Add(paquete);
+        }
+
+        public void EliminarPaquete(Paquete paquete)
+        {
+            Paquetes.Remove(paquete);
+        }
     }
 }

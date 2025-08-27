@@ -54,6 +54,7 @@
             colFechaNacModif = new DataGridViewTextBoxColumn();
             tbDniModif = new TextBox();
             tbNombreModif = new TextBox();
+            btnAtras = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -293,11 +294,22 @@
             tbNombreModif.Size = new Size(100, 23);
             tbNombreModif.TabIndex = 0;
             // 
+            // btnAtras
+            // 
+            btnAtras.Location = new Point(697, 415);
+            btnAtras.Name = "btnAtras";
+            btnAtras.Size = new Size(75, 23);
+            btnAtras.TabIndex = 1;
+            btnAtras.Text = "Atras";
+            btnAtras.UseVisualStyleBackColor = true;
+            btnAtras.Click += btnAtras_Click;
+            // 
             // GstUsuarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnAtras);
             Controls.Add(tabControl1);
             Name = "GstUsuarios";
             Text = "GstUsuarios";
@@ -340,5 +352,6 @@
         private DataGridViewTextBoxColumn colFechaNacModif;
         private Label label5;
         private Label label4;
+        private Button btnAtras;
     }
 }

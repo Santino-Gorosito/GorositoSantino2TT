@@ -12,9 +12,19 @@ namespace TP_2
 {
     public partial class GstVentas : Form
     {
-        public GstVentas(Sistema sistema)
+        Sistema sis = new Sistema();
+        Form1 menu = new Form1();
+        public GstVentas(Sistema sistema, Form1 menuPrincipal)
         {
             InitializeComponent();
+            sis  = sistema; 
+            menu = menuPrincipal;
+        }
+
+        private void btnAtras_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            menu.Show();
         }
     }
 }

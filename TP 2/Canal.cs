@@ -19,5 +19,10 @@ namespace TP_2
             Nombre = nom;
             Series = ser;
         }
+
+        public override string ToString()
+        {
+            return Nombre;
+        }
     }
 }

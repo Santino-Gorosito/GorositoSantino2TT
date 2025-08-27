@@ -15,10 +15,12 @@ namespace TP_2
     public partial class GstSeries : Form
     {
         Sistema sis = new Sistema();
-        public GstSeries(Sistema sistema)
+        Form1 menu = new Form1();
+        public GstSeries(Sistema sistema, Form1 menuPrincipal)
         {
             InitializeComponent();
             sis = sistema;
+            menu = menuPrincipal;
             cbGenero.DataSource = Enum.GetValues(typeof(Genero));
             cbGeneroModif.DataSource = Enum.GetValues(typeof(Genero));
 
@@ -70,6 +72,7 @@ namespace TP_2
             sis.AgregarSerie(serie);
             ActualizarDataEliminar();
             ActualizarDataModificar();
+            LimpiarCampos();
         }
 
         private void btnListar_Click(object sender, EventArgs e)
@@ -125,20 +128,20 @@ namespace TP_2
                 return;
             }
 
-            if (string.IsNullOrEmpty(tbNombre.Text) && string.IsNullOrEmpty(tbQTemporadas.Text) && string.IsNullOrEmpty(tbDirector.Text) && 
+            if (string.IsNullOrEmpty(tbNombre.Text) && string.IsNullOrEmpty(tbQTemporadas.Text) && string.IsNullOrEmpty(tbDirector.Text) &&
                 string.IsNullOrEmpty(tbDuracion.Text) && string.IsNullOrEmpty(tbQEpisodios.Text) && string.IsNullOrEmpty(tbRanking.Text) && cbGenero.SelectedItem == null)
             {
                 MessageBox.Show("Complete al menos 1 campo");
                 return;
             }
-            
-            Serie serie = (Serie)dataModificar.SelectedRows [0].DataBoundItem;
+
+            Serie serie = (Serie)dataModificar.SelectedRows[0].DataBoundItem;
 
             int TemporadasModif = 0;
             int EpisodiosModif = 0;
             int DuracionModif = 0;
             int RankingModif = 0;
-            
+
 
             try
             {
@@ -150,10 +153,11 @@ namespace TP_2
                     {
                         MessageBox.Show("El numero de temporadas debe ser mayor a 0");
                         return;
-                    } else
+                    }
+                    else
                     {
                         serie.QTemporadas = TemporadasModif;
-                    }   
+                    }
                 }
 
                 if (!string.IsNullOrEmpty(tbQEpisodiosModif.Text))
@@ -164,7 +168,8 @@ namespace TP_2
                     {
                         MessageBox.Show("La cantidad de episodios debe ser mayor a 0");
                         return;
-                    } else
+                    }
+                    else
                     {
                         serie.QEpisodios = EpisodiosModif;
                     }
@@ -178,7 +183,9 @@ namespace TP_2
                     {
                         MessageBox.Show("La duracion del episodio debe ser mayor a 0");
                         return;
-                    } else {
+                    }
+                    else
+                    {
                         serie.Duracion = DuracionModif;
                     }
                 }
@@ -191,7 +198,8 @@ namespace TP_2
                     {
                         MessageBox.Show("El ranking debe ser mayor a 0 y menos o igual a 10");
                         return;
-                    } else
+                    }
+                    else
                     {
                         serie.Ranking = RankingModif;
                     }
@@ -203,13 +211,15 @@ namespace TP_2
                     {
                         MessageBox.Show("Ya existe una serie con ese nombre");
                         return;
-                    } else
+                    }
+                    else
                     {
                         serie.Nombre = tbNombreModif.Text;
                     }
                 }
 
-                if (cbGeneroModif.SelectedItem != null) {
+                if (cbGeneroModif.SelectedItem != null)
+                {
                     Genero genero = (Genero)cbGeneroModif.SelectedItem;
                     serie.Genero = genero;
                 }
@@ -223,6 +233,29 @@ namespace TP_2
 
             ActualizarDataEliminar();
             ActualizarDataModificar();
+            LimpiarCampos();
+        }
+
+        private void btnAtras_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            menu.Show();
+        }
+
+        public void LimpiarCampos()
+        {
+            tbDuracion.Text = string.Empty;
+            tbDirector.Text = string.Empty;
+            tbDuracionModif.Text = string.Empty;
+            tbDirectorModif.Text = string.Empty;
+            tbNombre.Text = string.Empty;
+            tbNombreModif.Text = string.Empty;
+            tbQEpisodios.Text = string.Empty;
+            tbQEpisodiosModif.Text = string.Empty;
+            tbQTemporadas.Text = string.Empty;
+            tbQTemporadasModif.Text = string.Empty;
+            tbRanking.Text = string.Empty;
+            tbRankingModif.Text = string.Empty;
         }
     }
 }
