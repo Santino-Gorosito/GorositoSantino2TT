@@ -14,6 +14,7 @@ namespace TP_2
     {
         Sistema sis = new Sistema();
         Form1 menu = new Form1();
+        Paquete paqueteModificar;
         public GstPaquetes(Sistema sistema, Form1 menuPrincipal)
         {
             InitializeComponent();
@@ -109,6 +110,63 @@ namespace TP_2
             }
 
             sis.EliminarPaquete((Paquete)dataEliminar.SelectedRows[0].DataBoundItem);
+        }
+
+        private void btnCargar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbNombrePaquete.Text))
+            {
+                MessageBox.Show("Ingrese el nombre del paquete a editar");
+                return;
+            }
+
+            paqueteModificar = sis.DevolverPaquete(tbNombrePaquete.Text);
+
+            if (paqueteModificar == null)
+            {
+                MessageBox.Show("No existe un paquete con ese nombre");
+                return;
+            }
+            else
+            {
+                tbNombreModif.Enabled = true;
+                btnModificar.Enabled = true;
+                clbCanalesModif.Enabled = true;
+
+                cargarCanales(paqueteModificar);
+            }
+        }
+
+        public void cargarCanales(Paquete paquete)
+        {
+            clbCanalesModif.Items.Clear();
+
+            foreach (var canal in sis.Canales)
+            {
+                int index = clbCanalesModif.Items.Add(canal);
+
+                if (paquete.Canales.Any(s => s.Nombre == canal.Nombre))
+                {
+                    clbCanalesModif.SetItemChecked(index, true);
+                }
+            }
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(tbNombreModif.Text))
+            {
+                paqueteModificar.Nombre = tbNombreModif.Text;
+            }
+
+            paqueteModificar.Canales.Clear();
+
+            foreach (var item in clbCanalesModif.CheckedItems)
+            {
+                paqueteModificar.Canales.Add((Canal)item);
+            }
+
+            ActualizarDataEliminar();
         }
     }
 }

@@ -109,5 +109,10 @@ namespace TP_2
         {
             Paquetes.Remove(paquete);
         }
+
+        public Paquete DevolverPaquete(string nombre)
+        {
+            return Paquetes.FirstOrDefault(c => c.Nombre == nombre);
+        }
     }
 }

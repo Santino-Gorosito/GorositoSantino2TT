@@ -45,13 +45,13 @@
             dataEliminar = new DataGridView();
             colNombre = new DataGridViewTextBoxColumn();
             tabPage3 = new TabPage();
-            btnCargar = new Button();
-            tbNombrePaquete = new TextBox();
-            label4 = new Label();
-            clbCanalesModif = new CheckedListBox();
-            label5 = new Label();
-            tbNombreModif = new TextBox();
             btnModificar = new Button();
+            tbNombreModif = new TextBox();
+            label5 = new Label();
+            clbCanalesModif = new CheckedListBox();
+            label4 = new Label();
+            tbNombrePaquete = new TextBox();
+            btnCargar = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -236,39 +236,24 @@
             tabPage3.Text = "Modificar";
             tabPage3.UseVisualStyleBackColor = true;
             // 
-            // btnCargar
+            // btnModificar
             // 
-            btnCargar.Location = new Point(278, 20);
-            btnCargar.Name = "btnCargar";
-            btnCargar.Size = new Size(75, 23);
-            btnCargar.TabIndex = 0;
-            btnCargar.Text = "Cargar";
-            btnCargar.UseVisualStyleBackColor = true;
+            btnModificar.Enabled = false;
+            btnModificar.Location = new Point(197, 142);
+            btnModificar.Name = "btnModificar";
+            btnModificar.Size = new Size(195, 23);
+            btnModificar.TabIndex = 6;
+            btnModificar.Text = "Modificar";
+            btnModificar.UseVisualStyleBackColor = true;
+            btnModificar.Click += btnModificar_Click;
             // 
-            // tbNombrePaquete
+            // tbNombreModif
             // 
-            tbNombrePaquete.Location = new Point(172, 20);
-            tbNombrePaquete.Name = "tbNombrePaquete";
-            tbNombrePaquete.Size = new Size(100, 23);
-            tbNombrePaquete.TabIndex = 1;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(6, 28);
-            label4.Name = "label4";
-            label4.Size = new Size(160, 15);
-            label4.TabIndex = 2;
-            label4.Text = "Nombre Paquete a modificar";
-            // 
-            // clbCanalesModif
-            // 
-            clbCanalesModif.Enabled = false;
-            clbCanalesModif.FormattingEnabled = true;
-            clbCanalesModif.Location = new Point(25, 71);
-            clbCanalesModif.Name = "clbCanalesModif";
-            clbCanalesModif.Size = new Size(120, 94);
-            clbCanalesModif.TabIndex = 3;
+            tbNombreModif.Enabled = false;
+            tbNombreModif.Location = new Point(292, 106);
+            tbNombreModif.Name = "tbNombreModif";
+            tbNombreModif.Size = new Size(100, 23);
+            tbNombreModif.TabIndex = 5;
             // 
             // label5
             // 
@@ -279,23 +264,40 @@
             label5.TabIndex = 4;
             label5.Text = "Nombre Nuevo";
             // 
-            // tbNombreModif
+            // clbCanalesModif
             // 
-            tbNombreModif.Enabled = false;
-            tbNombreModif.Location = new Point(292, 106);
-            tbNombreModif.Name = "tbNombreModif";
-            tbNombreModif.Size = new Size(100, 23);
-            tbNombreModif.TabIndex = 5;
+            clbCanalesModif.Enabled = false;
+            clbCanalesModif.FormattingEnabled = true;
+            clbCanalesModif.Location = new Point(25, 71);
+            clbCanalesModif.Name = "clbCanalesModif";
+            clbCanalesModif.Size = new Size(120, 94);
+            clbCanalesModif.TabIndex = 3;
             // 
-            // btnModificar
+            // label4
             // 
-            btnModificar.Enabled = false;
-            btnModificar.Location = new Point(197, 142);
-            btnModificar.Name = "btnModificar";
-            btnModificar.Size = new Size(195, 23);
-            btnModificar.TabIndex = 6;
-            btnModificar.Text = "Modificar";
-            btnModificar.UseVisualStyleBackColor = true;
+            label4.AutoSize = true;
+            label4.Location = new Point(6, 28);
+            label4.Name = "label4";
+            label4.Size = new Size(160, 15);
+            label4.TabIndex = 2;
+            label4.Text = "Nombre Paquete a modificar";
+            // 
+            // tbNombrePaquete
+            // 
+            tbNombrePaquete.Location = new Point(172, 20);
+            tbNombrePaquete.Name = "tbNombrePaquete";
+            tbNombrePaquete.Size = new Size(100, 23);
+            tbNombrePaquete.TabIndex = 1;
+            // 
+            // btnCargar
+            // 
+            btnCargar.Location = new Point(278, 20);
+            btnCargar.Name = "btnCargar";
+            btnCargar.Size = new Size(75, 23);
+            btnCargar.TabIndex = 0;
+            btnCargar.Text = "Cargar";
+            btnCargar.UseVisualStyleBackColor = true;
+            btnCargar.Click += btnCargar_Click;
             // 
             // GstPaquetes
             // 
