@@ -43,5 +43,48 @@ namespace TP_3_CRUD
             crearForm.Show();
             this.Hide();
         }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            int? Id = ObtenerId();
+            if (Id != null)
+            {
+                Create editar = new Create(this, Id);
+                editar.Show();
+                this.Hide();
+                RellenarData();
+            }
+        }
+
+        private int? ObtenerId()
+        {
+            try
+            {
+                return int.Parse(dataSQL.Rows[dataSQL.CurrentRow.Index].Cells[0].Value.ToString());
+            } catch
+            {
+                return null;
+            }
+            
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            int? Id = ObtenerId();
+
+            try
+            {
+                if (Id != null)
+                {
+                    PersonaDB db = new PersonaDB();
+                    db.Eliminar((int)Id);
+                    RellenarData();
+                }
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
     }
 }

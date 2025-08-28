@@ -57,6 +57,43 @@ namespace TP_3_CRUD
             return personas;
         }
 
+        public Persona ObtenerPersonas(int id)
+        {
+           
+
+            string query = "select id,nombre,localidad,edad from Persona where id=@id";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id", id);
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    reader.Read();
+                    
+                        Persona persona = new Persona();
+                        persona.Id = reader.GetInt32(0);
+                        persona.Nombre = reader.GetString(1);
+                        persona.Localidad = reader.GetString(2);
+                        persona.Edad = reader.GetInt32(3);
+
+                        reader.Close();
+                        connection.Close();
+
+                    return persona;
+                    
+                   
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Hay un error en el query" + ex.Message);
+                }
+            }
+           
+        }
+
         public void Agregar(string nom, string loc, int edad)
         {
             string query = "insert into Persona(nombre, localidad, edad) values" +
@@ -82,7 +119,54 @@ namespace TP_3_CRUD
                 }
             }
         }
-         
+
+        public void Editar(string nom, string loc, int edad, int id)
+        {
+            string query = "update Persona set nombre=@nombre, localidad=@localidad, edad=@edad where id=@id";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@nombre", nom);
+                command.Parameters.AddWithValue("@localidad", loc);
+                command.Parameters.AddWithValue("@edad", edad);
+                command.Parameters.AddWithValue("@id", id);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Hay un error en el query" + ex.Message);
+                }
+            }
+        }
+
+        public void Eliminar(int id)
+        {
+            string query = "delete from Persona where id=@id";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id", id);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Hay un error en el query" + ex.Message);
+                }
+            }
+        }
+
     }
 
     public class Persona {

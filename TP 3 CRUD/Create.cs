@@ -13,10 +13,24 @@ namespace TP_3_CRUD
     public partial class Create : Form
     {
         Form1 menu = new Form1();
-        public Create(Form1 menuPrincipal)
+        private int? Id;
+        public Create(Form1 menuPrincipal, int? id = null)
         {
             InitializeComponent();
             menu = menuPrincipal;
+            this.Id = id;
+            if (this.Id != null)
+                CargarData();
+        }
+
+        private void CargarData()
+        {
+            PersonaDB db = new PersonaDB();
+            Persona persona = db.ObtenerPersonas((int)Id);
+            tbNombre.Text = persona.Nombre;
+            tbLocalidad.Text = persona.Localidad;
+            tbEdad.Text = persona.Edad.ToString();
+
         }
 
         private void btnAtras_Click(object sender, EventArgs e)
@@ -40,8 +54,10 @@ namespace TP_3_CRUD
             try
             {
                 edad = Convert.ToInt32(tbEdad.Text);
-
-                db.Agregar(tbNombre.Text, tbLocalidad.Text, edad);
+                if (Id==null) 
+                    db.Agregar(tbNombre.Text, tbLocalidad.Text, edad);
+                else
+                    db.Editar(tbNombre.Text, tbLocalidad.Text, edad, (int)Id);
                 menu.RellenarData();
             }
             catch (FormatException)
