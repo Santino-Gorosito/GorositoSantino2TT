@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace TP_3_CRUD
 {
@@ -18,6 +19,7 @@ namespace TP_3_CRUD
             try {
                 SqlConnection connection = new SqlConnection(connectionString);
                 connection.Open();
+                
             } catch
             {
                 return false;
