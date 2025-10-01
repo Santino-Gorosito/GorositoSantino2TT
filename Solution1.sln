@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repaso ENTITYFW", "Repaso E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ado_multiplestablas", "ado_multiplestablas\ado_multiplestablas.csproj", "{700E80D9-82A7-4284-8FDB-49A906B61D57}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelo Parcial ADO", "Modelo Parcial ADO\Modelo Parcial ADO.csproj", "{C758BD2B-F038-4889-9E38-B8487FD9363D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{700E80D9-82A7-4284-8FDB-49A906B61D57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{700E80D9-82A7-4284-8FDB-49A906B61D57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{700E80D9-82A7-4284-8FDB-49A906B61D57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C758BD2B-F038-4889-9E38-B8487FD9363D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C758BD2B-F038-4889-9E38-B8487FD9363D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C758BD2B-F038-4889-9E38-B8487FD9363D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C758BD2B-F038-4889-9E38-B8487FD9363D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +78,7 @@ Global
 		{AA9F5550-E705-422F-93FF-61433EBBB870} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{D3CABF1E-34E0-4EFF-AD20-BB3A2FBEE922} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{700E80D9-82A7-4284-8FDB-49A906B61D57} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{C758BD2B-F038-4889-9E38-B8487FD9363D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92BFC4BD-9AB1-4C61-98E2-C787FAC6C54B}
