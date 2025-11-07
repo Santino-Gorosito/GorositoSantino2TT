@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Entidades
+{
+    public class Cuenta
+    {
+        public int CuentaId {  get; set; }
+        public string Numero {  get; set; }
+        public int ClienteId { get; set; }
+        public Cliente Cliente { get; set; }
+        public List<Movimiento> Movimientos { get; set; }
+        
+    }
+}
