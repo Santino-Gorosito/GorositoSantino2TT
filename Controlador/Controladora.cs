@@ -20,7 +20,7 @@ namespace Controlador
         }
 
         #region Cliente
-        public IReadOnlyCollection<Cliente> Listar()
+        public IReadOnlyCollection<Cliente> ListarCliente()
         {
             return repo.ListarCliente();
         }
@@ -30,14 +30,28 @@ namespace Controlador
             repo.AgregarCliente(cliente);
         }
 
-        public void Modificar(Cliente cliente)
+        public void ModificarCliente(Cliente cliente)
         {
             repo.ModificarCliente(cliente);
         }
 
-        public void Eliminar(Cliente cliente)
+        public void EliminarCliente(Cliente cliente)
         {
             repo.EliminarCliente(cliente);
+        }
+
+        public bool existeDni(string dni)
+        {
+            IReadOnlyCollection<Cliente> clientes = repo.ListarCliente();
+            Cliente cliente = clientes.FirstOrDefault(c => c.DNI == dni);
+
+            if (cliente == null)
+            {
+                return false;
+            } else
+            {
+                return true;
+            }
         }
         #endregion
 
@@ -55,6 +69,27 @@ namespace Controlador
         public void AgregarCuenta(Cuenta cuenta)
         {
             repo.AgregarCuenta(cuenta);
+        }
+
+        public bool ExisteCuenta(string num)
+        {
+            IReadOnlyCollection<Cuenta> cuentas = repo.ListarCuentas();
+            Cuenta cuenta = cuentas.FirstOrDefault(c => c.Numero == num);
+
+            if (cuenta == null)
+            {
+                return false;
+            } else
+            {
+                return true;
+            }
+            
+        }
+
+        public Cuenta CuentaSolicitada(string num)
+        {
+            IReadOnlyCollection<Cuenta> cuentas = repo.ListarCuentas();
+            return cuentas.FirstOrDefault(c => c.Numero == num);
         }
         #endregion
 
