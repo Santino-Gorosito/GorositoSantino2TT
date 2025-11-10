@@ -19,5 +19,15 @@ namespace Modelo
         {
             optionsBuilder.UseSqlServer(con);
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Configuración explícita para que MovimientoId sea autogenerado
+            modelBuilder.Entity<Movimiento>()
+                .Property(m => m.MovimientoId)
+                .ValueGeneratedOnAdd();
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

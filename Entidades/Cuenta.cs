@@ -15,7 +15,9 @@ namespace Entidades
         public Cliente Cliente { get; set; }
         public List<Movimiento> Movimientos { get; set; }
 
-        public Cuenta() { }
+        public Cuenta() {
+            Movimientos = new List<Movimiento>();
+        }
 
         public Cuenta(string numero, int clienteId, Cliente cliente)
         {

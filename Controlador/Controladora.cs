@@ -83,7 +83,11 @@ namespace Controlador
             {
                 return true;
             }
-            
+        }
+
+        public void ActualizarCuenta(Cuenta cuenta)
+        {
+            repo.ModificarCuenta(cuenta);
         }
 
         public Cuenta CuentaSolicitada(string num)
@@ -105,9 +109,29 @@ namespace Controlador
         }
 
 
-        public void Agregar(Movimiento movimiento)
+  
+        public void GuardarTransaccion(Cuenta cuenta, Movimiento movimiento)
         {
-            repo.AgregarMovimiento(movimiento);
+            using (var context = new Modelo.Context())
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    context.CuentaCorrientes.Update(cuenta);
+                    context.Movimientos.Add(movimiento);
+
+                 
+                    context.Entry(movimiento).Property(m => m.MovimientoId).IsTemporary = true;
+
+                    context.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
         }
 
         #endregion

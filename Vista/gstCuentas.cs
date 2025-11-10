@@ -71,9 +71,14 @@ namespace Vista
             {
                 MessageBox.Show("Debe ingresar el numero de la cuenta a consultar");
                 return;
-            } 
+            }
             Cuenta cuenta = Controladora.Instancia.CuentaSolicitada(tbNumeroEstado.Text);
             MessageBox.Show($"El saldo de la cuenta es de {cuenta.Saldo}");
+        }
+
+        private void btnListar_Click(object sender, EventArgs e)
+        {
+            Refresh();
         }
     }
 }

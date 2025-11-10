@@ -169,6 +169,7 @@
             btnListar.TabIndex = 7;
             btnListar.Text = "Listar todas las cuentas";
             btnListar.UseVisualStyleBackColor = true;
+            btnListar.Click += btnListar_Click;
             // 
             // gstCuentas
             // 
