@@ -75,6 +75,7 @@
             s.TabIndex = 3;
             s.Text = "Salir";
             s.UseVisualStyleBackColor = true;
+            s.Click += s_Click;
             // 
             // pictureBox1
             // 

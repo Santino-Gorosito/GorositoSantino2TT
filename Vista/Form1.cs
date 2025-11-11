@@ -24,5 +24,10 @@ namespace Vista
             gstInformes frmInformes = new gstInformes();
             frmInformes.ShowDialog();
         }
+
+        private void s_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

@@ -43,7 +43,10 @@ namespace Modelo
 
         public IReadOnlyCollection<Cuenta> ListarCuentas()
         {
-            return context.CuentaCorrientes.ToList().AsReadOnly();
+   
+            return context.CuentaCorrientes
+                          .Include(c => c.Movimientos) 
+                          .ToList().AsReadOnly();
         }
 
         public IReadOnlyCollection<Cuenta> ListarCuentasPorCliente(int clienteId)
